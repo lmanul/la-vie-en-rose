@@ -12,7 +12,6 @@ SIZES = [
 ]
 
 if __name__ == "__main__":
-    os.chdir("images")
     for s in SIZES:
         print(str(s) + "...")
         os.system("convert -background none -density 3000 -resize "
