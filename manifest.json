@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+    "name": "La Vie en Rose",
+    "version": "0.1",
+    "description": "See Twitter life through GraphQL glasses",
+    "author": "Manu Cornet",
+    "homepage_url": "https://github.com/lmanul/la-vie-en-rose",
+    "permissions": [
+        "webRequest",
+        "webRequestBlocking",
+        "http://*/*",
+        "https://*/*",
+        "storage"
+    ],
+    "icons": {
+        "16": "images/logo_16.png",
+        "64": "images/logo_64.png",
+        "128": "images/logo_128.png",
+    },
+    "background": {
+        "persistent": true,
+        "scripts": ["blocker.js"]
+    },
+    "browser_action": {
+        "default_title": "Put on the glasses",
+        "default_icon": {
+            "16": "images/logo_16.png",
+            "64": "images/logo_64.png",
+            "128": "images/logo_128.png"
+        },
+        "default_popup": "popup.html"
+    }
+}
