@@ -1,3 +1,8 @@
+const BLOCKED_PATTERNS = [
+  // REST calls for the list of conversations.
+  'https://twitter.com/i/api/1.1/dm/inbox_initial_state.json*',
+];
+
 function blockRequest(details) {
   console.log("Blocked: ", details.url);
   return {
@@ -16,6 +21,7 @@ function updateFilters(urls) {
   }
 
   var validPatterns = patterns.filter(isValidPattern);
+  console.log('Valid patterns: ', validPatterns);
 
   if (patterns.length) {
     try{
@@ -49,5 +55,4 @@ load(function(p) {
   updateFilters();
 });
 
-
-
+save(BLOCKED_PATTERNS, () => {console.log('Loaded patterns'); })
