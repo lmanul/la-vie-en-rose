@@ -17,3 +17,4 @@ if __name__ == "__main__":
         os.system("convert -background none -density 3000 -resize "
                   "" + str(s) + "x" + str(s) + " logo.svg logo_" + str(s) + ""
                   ".png")
+        os.system("map optipng *.png")
