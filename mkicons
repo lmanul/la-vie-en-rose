@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+
+import os
+
+SIZES = [
+    512,
+    256,
+    128,
+    64,
+    32,
+    16
+]
+
+if __name__ == "__main__":
+    os.chdir("images")
+    for s in SIZES:
+        print(str(s) + "...")
+        os.system("convert -background none -density 3000 -resize "
+                  "" + str(s) + "x" + str(s) + " logo.svg logo_" + str(s) + ""
+                  ".png")
