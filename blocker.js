@@ -1,6 +1,8 @@
 const BLOCKED_PATTERNS = [
   // REST calls for the list of conversations.
   'https://twitter.com/i/api/1.1/dm/inbox_initial_state.json*',
+  // REST calls for the conversation timelines.
+  'https://twitter.com/i/api/1.1/dm/conversation/*',
 ];
 
 function blockRequest(details) {
