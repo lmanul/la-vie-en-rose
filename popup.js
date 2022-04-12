@@ -16,17 +16,25 @@ const initPopup = () => {
   port = chrome.runtime.connect({ name: 'knockknock' });
 
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  console.log(checkboxes);
+
+  port.postMessage({
+    event: 'get_blocked',
+  });
+  port.onMessage.addListener(function(msg) {
+    console.log(msg);
+    if (msg.event === 'current_blocked') {
+      for (let i = 0; i < msg.data.length; i++) {
+        console.log(checkboxes[i]);
+        checkboxes[i].checked = msg.data[i];
+      }
+    }
+  });
+
   for (c of checkboxes) {
     c.addEventListener('click', (e) => {
       onCheckboxChanged();
     });
   }
-
-  port.postMessage({
-    event: 'poof',
-    data: {  },
-  });
 };
 
 initPopup();

@@ -1,4 +1,4 @@
-const BLOCKED_PATTERNS = [
+const BLOCKABLE_PATTERNS = [
   // REST calls for the list of conversations.
   'https://twitter.com/i/api/1.1/dm/inbox_initial_state.json*',
   // REST calls for the conversation timelines.
@@ -25,7 +25,6 @@ function updateFilters(urls) {
   }
 
   var validPatterns = patterns.filter(isValidPattern);
-  console.log('Valid patterns: ', validPatterns);
 
   if (patterns.length) {
     try{
@@ -54,15 +53,39 @@ function save(newPatterns, callback) {
   });
 }
 
+function blockMaskFromPatterns(patt) {
+  const blockMask = [];
+  for (let item of BLOCKABLE_PATTERNS) {
+    blockMask.push(patt.includes(item) ? true : false);
+  }
+  return blockMask;
+}
+
+function patternsFromBlockMask(blockMask) {
+  const newPatterns = [];
+  for (let i = 0; i < BLOCKABLE_PATTERNS.length; i++) {
+    if (blockMask[i]) {
+      newPatterns.push(BLOCKABLE_PATTERNS[i]);
+    }
+  }
+  return newPatterns;
+}
+
 load(function(p) {
   patterns = p;
   updateFilters();
 });
 
-save(BLOCKED_PATTERNS, () => {console.log('Loaded patterns'); })
-
 chrome.runtime.onConnect.addListener(function (port) {
   port.onMessage.addListener(function (msg) {
-    console.log(msg);
+    if (msg.event === 'update_blocked') {
+      save(patternsFromBlockMask(msg.data), () => {});
+    }
+    if (msg.event === 'get_blocked') {
+      port.postMessage({
+        event: 'current_blocked',
+        data: blockMaskFromPatterns(patterns),
+      });
+    }
   });
 });
