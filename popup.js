@@ -2,11 +2,18 @@ let port;
 
 const onCheckboxChanged = () => {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  console.log(checkboxes);
+  const blockMask = [];
+  for (c of checkboxes) {
+    blockMask.push(c.checked);
+  }
+  port.postMessage({
+    event: 'update_blocked',
+    data: blockMask,
+  });
 };
 
 const initPopup = () => {
-  const port = chrome.runtime.connect({ name: 'knockknock' });
+  port = chrome.runtime.connect({ name: 'knockknock' });
 
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   console.log(checkboxes);
