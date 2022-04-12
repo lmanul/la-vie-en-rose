@@ -5,6 +5,9 @@ const BLOCKED_PATTERNS = [
   'https://twitter.com/i/api/1.1/dm/conversation/*',
 ];
 
+const validPattern = /^(file:\/\/.+)|(https?|ftp|\*):\/\/(\*|\*\.([^\/*]+)|([^\/*]+))\//g;
+/* Random comment because the previous line confuses my editor's highlighting. */
+
 function blockRequest(details) {
   console.log("Blocked: ", details.url);
   return {
@@ -13,7 +16,6 @@ function blockRequest(details) {
 }
 
 function isValidPattern(urlPattern) {
-  var validPattern = /^(file:\/\/.+)|(https?|ftp|\*):\/\/(\*|\*\.([^\/*]+)|([^\/*]+))\//g;
   return !!urlPattern.match(validPattern);
 }
 
@@ -58,3 +60,9 @@ load(function(p) {
 });
 
 save(BLOCKED_PATTERNS, () => {console.log('Loaded patterns'); })
+
+chrome.runtime.onConnect.addListener(function (port) {
+  port.onMessage.addListener(function (msg) {
+    console.log(msg);
+  });
+});
