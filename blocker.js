@@ -3,6 +3,12 @@ const BLOCKABLE_PATTERNS = [
   'https://twitter.com/i/api/1.1/dm/inbox_initial_state.json*',
   // REST calls for the conversation timelines.
   'https://twitter.com/i/api/1.1/dm/conversation/*',
+  // REST calls for sending new messages.
+  'https://twitter.com/i/api/1.1/dm/new.json',
+  // REST calls for hiding messagess.
+  'https://twitter.com/i/api/1.1/dm/destroy.json',
+  // REST calls for adding and removing reactions.
+  'https://twitter.com/i/api/1.1/dm/reaction/delete.json*',
 ];
 
 const validPattern = /^(file:\/\/.+)|(https?|ftp|\*):\/\/(\*|\*\.([^\/*]+)|([^\/*]+))\//g;

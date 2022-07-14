@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "La Vie en Rose",
-    "version": "0.1",
+    "version": "0.2",
     "description": "See Twitter life through GraphQL glasses",
     "author": "Manu Cornet",
     "homepage_url": "https://github.com/lmanul/la-vie-en-rose",
